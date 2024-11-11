@@ -1,0 +1,30 @@
+<h3>if</h3>
+{% if total > 500 %}
+<p>ex</p>
+{% endif %}
+
+
+<h3>if and else</h3>
+{% if total > 550 %}
+<p>EX</p>
+{% else %}
+<p>GOOD</p>
+{% endif %}
+
+
+<h3>if, elif and else</h3>
+{% if total > 500%}
+<p>ex</p>
+{% elif total < 500 and total > 550 %}
+<p>very good</p>
+{% else %}
+<p>good</p>
+{% endif %}
+
+<h3>for loop</h3>
+<ul>
+{% for sub,mark in marks.items %}
+<li>{{sub}} : {{mark}}</li>
+{% endfor %}
+</ul>
+<a href="{% url 'home'%}">Back</a>

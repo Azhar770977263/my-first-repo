@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+
+<body>
+    <h2><b>Welcome For All Students</b></h2>
+    <ul>
+        
+        <h2><mark><u>CRUD</u></mark></h2> 
+        <li> <a href="{% url 'showstudents' %}"> صفحة عرض الطلاب</a></li><br>
+        <li> <a href="{% url 'editstudents' %}"> صفحة تعديل الطلاب</a></li><br>
+        <li> <a href="{% url 'deletestudents' %}"> صفحة حذف الطلاب</a></li><br>
+        <li> <a href="{% url 'editstudents' %}">صفحة تعديل الطلاب </a></li><br>
+        <li> <a href="{% url 'getstudents' %}">عرض كل الطلاب </a></li><br>
+         
+         <h2><mark><u>QUERY SET</u></mark></h2>
+        <li> <a href="{% url 'getstudents' %}"> عرض الطلاب مرتبين على حسبGPAتصاعديا </a></li><br>
+        <li> <a href="{% url 'add_students' %}">اضافة طالب</a></li><br>
+        <li> <a href="{% url 'getstudentss' %}">a عرض الطالب الذي في اسمه حرف </a></li><br>
+        <li> <a href="{% url 'getstudent' %}">تصاعديا</a></li><br>
+        <li> <a href="{% url 'getstudentna' %}">عرض الطلاب بين الففترة المحددة </a></li><br>
+        <li> <a href="{% url 'getstudentnac' %}">عرض الطالب المحدد بالشرط</a></li><br>
+        <li> <a href="{% url 'getstudentnacr' %}">حذف الطالب الذي بالشرط</a></li><br>
+        <li> <a href="{% url 'getif' %}">الشرط المركب</a></li><br>
+         </ul>
+</body>
+
+</html>

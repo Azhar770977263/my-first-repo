@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Show</title>
+</head>
+
+<body>
+    <h2> قائمة الطلاب </h2>
+    <ul>
+        {% for student in students %}
+        <li>{{ student.f_name }} {{ student.l_name }} ,
+            Level: {{ student.level }} , gpa : {{ student.gpa }}</li>
+        <li> {{ student.gpa }}
+            <a href="{% url 'delete_students' student.id %}">حذف طالب   </a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    {% for student in filter.qs %}
+    {{ student.f_name }}
+    {{ student.l_name }}
+    {{ student.age }}
+    {{ student.level }}
+
+    {% endfor %}
+</body>
+
+</html>
