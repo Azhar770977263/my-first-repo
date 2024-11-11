@@ -1,0 +1,12 @@
+<form method="get">
+    {{ myfilter.form.as_p }}
+    <button type="submit">بحث</button>
+</form>
+
+<ul>
+    {% for student in students %}
+        <li>{{ student.f_name }} {{ student.l_name }} - {{ student.age }} - GPA: {{ student.gpa }}</li>
+    {% empty %}
+        <li>لا يوجد طلاب للعرض.</li>
+    {% endfor %}
+</ul>
