@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Show Students</title>
+</head>
+<body>
+    <h2>قائمة الطلاب</h2>
+    <ul>
+        {% for student in students %}
+        <li>
+            {{ student.f_name }} {{ student.l_name }} ، 
+            Level: {{ student.level }} ، GPA: {{ student.gpa }}
+            <a href="{% url 'edit_student' student.id %}">تعديل</a>
+            <a href="{% url 'delete_student' student.id %}">حذف</a>
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'add_student' %}">إضافة طالب جديد</a>
+</body>
+</html>

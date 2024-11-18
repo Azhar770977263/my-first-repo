@@ -1,101 +1,72 @@
-from django.shortcuts import render
-
-# from Students.filters import StudentsFilters
-from . models import Students
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Students
 from django.http import HttpResponse
-from django.db.models import Q
-# import django_filters # type: ignore
-# from django_filters import FilterView 
-# Create your views here.
-
-# class StudentsListView(FilterView):
-#     model =Students
-#     filterset_class = StudentsFilters
-#     template_name='showstudents.html'
 
 # الصفحة الأساسية 
 def index(request):
-    return render(request,'index.html')
-# صفحة العرض
-def showstudents(request):
-    return render(request,'showstudents.html')
-    
-# صفحة الحذف
-def editstudents(request):
-    return render(request,'editstudents.html')
+    return render(request, 'index.html')
 
+# صفحة عرض الطلاب
+def show_students(request):
+    students = Students.objects.all()
+    return render(request, 'show_students.html', {"students": students})
+
+# إضافة طالب
+def add_student(request):
+    if request.method == "POST":
+        Students.objects.create(
+            f_name=request.POST['f_name'],
+            l_name=request.POST['l_name'],
+            age=request.POST['age'],
+            gpa=request.POST['gpa'],
+            statust=request.POST['statust'] == 'on',
+            reporet=request.POST['reporet'],
+            level=request.POST['level'],
+        )
+        return redirect('show_students')
+    return render(request, 'add_student.html')
 
 # تعديل طالب
-def deletestudents(request):
-    return render(request,'deletestudents.html')
-
-# تعديل طالب
-def edit_students(request,pk):
-    students=Students.objects.get(pk=pk)
-    # students=Students.objects.get(l_name=pk)
-    students.Levels=4
-    students.l_name="rasha"
-    students.save()
-    return HttpResponse("Update Done")
+def edit_student(request, pk):
+    student = get_object_or_404(Students, pk=pk)
+    if request.method == "POST":
+        student.f_name = request.POST['f_name']
+        student.l_name = request.POST['l_name']
+        student.age = request.POST['age']
+        student.gpa = request.POST['gpa']
+        student.statust = request.POST['statust'] == 'on'
+        student.reporet = request.POST['reporet']
+        student.level = request.POST['level']
+        student.save()
+        return redirect('show_students')
+    return render(request, 'edit_student.html', {"student": student})
 
 # حذف طالب
-def delete_students(request,pk):
-    students=Students.objects.get(pk=pk)
-    students.delete()
-    return HttpResponse("Delete Done")
+def delete_student(request, pk):
+    student = get_object_or_404(Students, pk=pk)
+    student.delete()
+    return redirect('show_students')
 
+def get_students_ordered_by_gpa(request):
+    students = Students.objects.all().order_by('gpa')
+    return render(request, 'show_students.html', {"students": students})
 
-def getstudents(request):
-    students=Students.objects.all()
-    count= Students.objects.all().count()
-    # return HttpResponse("Get Done")
-    return render(request,'showstudents.html',{"students":students})
+def get_students_ordered_by_gpa_desc(request):
+    students = Students.objects.all().order_by('-gpa')
+    return render(request, 'show_students.html', {"students": students})
 
-# اضافة طالب
-def add_students(reguest):
-    Students.objects.create(
-        f_name="azhar",
-        l_name="adel",
-        age=22,
-        gpa=80.3,
-        statust=True,
-        reporet="Normal",
-        level='4',
-    ).save()
-    return HttpResponse("Add Done")
+def get_students_with_name_a(request):
+    students = Students.objects.filter(f_name__contains='a')
+    return render(request, 'show_students.html', {"students": students})
 
-# عرض الطالب الذي في اسمه حرف r
-def getstudentss(request):
-    students=Students.objects.filter(f_name__contains='a')
-    return render(request,'showstudents.html',{"students":students})
-    
-#تصاعديا   
-def getstudent(request):
-    students=Students.objects.all().order_by('gpa')
-    return render(request,'showstudents.html',{"students":students})
-    # return HttpResponse("get Done")
+def get_students_with_gpa_range(request):
+    students = Students.objects.filter(gpa__range=[87, 90])
+    return render(request, 'show_students.html', {"students": students})
 
-# عرض الطلاب مرتبين على حسب gpa تنازليا   
-# def getstudent(request):
-#     students=Students.objects.all().order_by('-gpa')
-#     return render(request,'showstudents.html',{"students":students})
-#     # return HttpResponse("get Done")
+def get_students_with_exact_gpa(request):
+    students = Students.objects.filter(gpa__exact=90)
+    return render(request, 'show_students.html', {"students": students})
 
-def getstudentna(request):
-    students=Students.objects.filter(gpa__range=[87,90])
-    return render(request,'showstudents.html',{"students":students})
-
-
-def getstudentnac(request):
-    students=Students.objects.filter(gpa__exact=90)
-    return render(request,'showstudents.html',{"students":students})
-
-
-def getstudentnacr(request):
-    students=Students.objects.all().exclude(f_name="azhar")
-    return render(request,'showstudents.html',{"students":students})
-
-def getif(request):
-    students=Students.objects.all().exclude(Q(f_name="adel")|Q(age=22))
-    return render(request,'showstudents.html',{"students":students})
-
+def get_students_exclude_name_age(request):
+    students = Students.objects.exclude(f_name="adel", age=22)
+    return render(request, 'show_students.html', {"students": students})

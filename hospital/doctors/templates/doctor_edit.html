@@ -1,0 +1,52 @@
+{% extends "bases.html" %}
+
+{% block content %}
+
+<h1 class="border border-primary m-5 p-5">Update Doctor</h1>
+
+<div class="m-5 border-primary">
+
+<form method="post" action="{% url 'doctors:edit' doctors.id %}" enctype="multipart/form-data">
+
+{% csrf_token %}
+
+<div class="col-md-4">
+    <label for="firstName" class="form-label">First Name</label>
+    <input type="text" class="form-control" id="firstName" required name="fname" value="{{ doctors.first_name }}">
+    <div class="valid-feedback">Looks good!</div>
+</div>
+
+<div class="col-md-4">
+    <label for="lastName" class="form-label">Last Name</label>
+    <input type="text" class="form-control" id="lastName" required name="lname" value="{{ doctors.last_name }}">
+    <div class="valid-feedback">Looks good!</div>
+</div>
+
+<div class="col-md-4">
+    <label for="specialization" class="form-label">Specialization</label>
+    <input type="text" class="form-control" id="specialization" required name="specialization" value="{{ doctors.specialization }}">
+</div>
+
+<div class="col-md-4">
+    <label for="phoneNumber" class="form-label">Phone Number</label>
+    <input type="text" class="form-control" id="phoneNumber" required name="phone_number" value="{{ doctors.phone_number }}">
+</div>
+
+<div class="col-md-4">
+    <label for="email" class="form-label">Email</label>
+    <input type="email" class="form-control" id="email" required name="email" value="{{ doctors.email }}">
+</div>
+
+<div class="mb-3">
+    <label for="formImage" class="form-label">Doctor Image</label>
+    <input class="form-control" type="file" id="formImage" name="image">
+    <small class="form-text text-muted"> {{ doctors.image.url }}</small>
+</div>
+
+<button type="submit" class="btn btn-primary m-2">Submit</button>
+
+</form>
+
+</div>
+
+{% endblock %}

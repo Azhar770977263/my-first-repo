@@ -1,0 +1,33 @@
+<!-- templates/patients_info.html -->
+{% extends "base.html" %}
+{% load static %}  <!-- أضف هذا السطر لتحميل مكتبة static -->
+
+{% block content %}
+{% include "layout/header.html" %}
+<div class="card mb-3 border border-primary m-5 p-5" style="max-width: 500px;">
+    
+    <div class="row g-0">
+        <div class="col-md-4">
+            {% if patient.image %}
+                <img src="{{ patient.image.url }}" class="img-fluid rounded-start" alt="Patient Image">
+            {% else %}
+                <img src="{% static 'path/to/default/image.jpg' %}" class="img-fluid rounded-start" alt="Default Image"> <!-- صورة افتراضية إذا لم توجد صورة -->
+            {% endif %}
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{ patient.id }} - {{ patient.first_name }} {{ patient.last_name }}</h5>
+                <p class="card-text">age: {{ patient.age }}
+                    <br>Report: {{ patient.report }}</p>
+                <p class="card-text"><small class="text-muted">Uploaded_date : {{ patient.uploaded_at }}</small></p>
+                <p class="card-text">
+                    <small>
+                        <a href="{% url 'patients:edit' patient.id %}" class="btn btn-primary text-white">Update</a>
+                        <a href="{% url 'patients:delete' patient.id %}" class="btn btn-danger text-white">Delete</a>
+                    </small>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

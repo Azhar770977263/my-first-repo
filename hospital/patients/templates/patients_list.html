@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="border border-primary m-5 p-5">patients</h1>
+<table class="table table-striped">
+    <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Report</th>
+        <th>Actions</th>
+    </tr>
+    {% for patient in Patients %}
+    <tr>
+        <td>{{ patient.first_name }} {{ patient.last_name }}</td>  <!-- استخدم الأسماء الصحيحة -->
+        <td>{{ patient.age }}</td>
+        <td>{{ patient.report }}</td>
+        <td>
+            
+                <a href="{% url 'patients:edit' patient.id %}"><i class="fas fa-edit"></i></a>
+                <a href="{% url 'patients:delete' patient.id %}" class="text-danger">
+                    <i class="fas fa-trash-alt"></i></a>
+                <a href="{% url 'patients:showdetail' patient.id %}" > showdetail</a>
+                      <!-- أيقونة التفاصيل -->
+            
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

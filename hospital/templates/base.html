@@ -1,0 +1,22 @@
+
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    
+    
+    <!-- إضافة CSS الخاص بـ Font Awesome هنا -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <!-- إضافة أي CSS آخر هنا -->
+    {% include 'layout/header.html' %}
+</head>
+<body>
+    {% include 'layout/navebar.html' %}
+    
+    {% block content %}
+    {% endblock %}
+    
+    {% include 'layout/scripts.html' %}
+</body>
+</html> 

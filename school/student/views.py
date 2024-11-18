@@ -24,4 +24,10 @@ def showstudent(request):
 
 def editstudent(request):
     name={"fname":"azhar"}
-    return render(request,'editstudent.html',name)    
+    return render(request,'editstudent.html',name) 
+
+
+
+def index(request):
+    name={"fname":"azhar"}
+    return render(request,'index.html',name)           

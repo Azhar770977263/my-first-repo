@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تعديل طالب</title>
+</head>
+<body>
+    <h2>تعديل معلومات الطالب</h2>
+    <form method="POST">
+        {% csrf_token %}
+        
+        <label for="f_name">الاسم الأول:</label>
+        <input type="text" name="f_name" value="{{ student.f_name }}" required><br>
+
+        <label for="l_name">الاسم الأخير:</label>
+        <input type="text" name="l_name" value="{{ student.l_name }}" required><br>
+
+        <label for="age">العمر:</label>
+        <input type="number" name="age" value="{{ student.age }}" required><br>
+
+        <label for="gpa">GPA:</label>
+        <input type="number" step="0.01" name="gpa" value="{{ student.gpa }}" required><br>
+
+        <label for="statust">حالة الطالب:</label>
+        <input type="checkbox" name="statust" {% if student.statust %}checked{% endif %}><br>
+
+        <label for="reporet">التقرير:</label>
+        <textarea name="reporet" required>{{ student.reporet }}</textarea><br>
+
+        <label for="level">المستوى:</label>
+        <select name="level" required>
+            <option value="1" {% if student.level == '1' %}selected{% endif %}>1</option>
+            <option value="2" {% if student.level == '2' %}selected{% endif %}>2</option>
+            <option value="3" {% if student.level == '3' %}selected{% endif %}>3</option>
+            <option value="4" {% if student.level == '4' %}selected{% endif %}>4</option>
+        </select><br>
+
+        <button type="submit">تحديث</button>
+    </form>
+</body>
+</html>
